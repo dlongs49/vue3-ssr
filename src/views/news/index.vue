@@ -7,8 +7,8 @@
     >
       <div class="date">
         <div class="dmbox">
-          <span class="day">{{ item.time[2] }}</span>
-          <span class="mon">{{ item.time[1] }}月</span>
+          <span class="day">{{ item.time.substring(5,7) }}</span>
+          <span class="mon">{{ item.time.substring(8,8) }}月</span>
         </div>
         <div class="line"></div>
       </div>
@@ -16,10 +16,10 @@
         <img  alt=""/>
       </div>
       <div class="item_txt">
-        <h5>{{ item.Name }}</h5>
+        <h5>{{item.verse_author}}{{ item.verse_source }}</h5>
         <div class="txt">
           {{
-            item.Title
+            item.verse_title
           }}<a class="detail"
                href="javascript:void(0)"
         >详细信息>></a
@@ -31,9 +31,20 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import {ref,onMounted} from 'vue'
+import axios from 'axios'
 const list = ref([])
-
+onMounted(() => {
+  getList()
+})
+const getList = () => {
+  axios({
+    url: 'http://expro.dillonl.com/api/v2/verse/get?offset=1&limit=10',
+    method: 'GET'
+  }).then(res => {
+    list.value = res.data.data.result
+  })
+}
 </script>
 
 <style lang="less" scoped>

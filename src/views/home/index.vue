@@ -1,9 +1,5 @@
 <template>
-  <ul>
-    <li v-for="(item,index) in list">{{ item.verse_title }}</li>
-
-  </ul>
-
+    <div v-for="(item,index) in list">{{ item.verse_title }}</div>
 </template>
 <script setup>
 import {ref, onMounted} from 'vue'
@@ -13,7 +9,7 @@ const list = ref([])
 
 
 onMounted(() => {
-  // getList()
+  getList()
 })
 const getList = () => {
   axios({
